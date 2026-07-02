@@ -5,32 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GREEN ROAD STUDIO</title>
 
+  <meta name="description" content="Green Road Studio - Recording, mixing & mastering pour artistes indépendants.">
+
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0b0f0c;
+      background: radial-gradient(circle at top, #132018, #0b0f0c);
       color: white;
       display: flex;
       height: 100vh;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: 15px;
+      gap: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    p.subtitle {
+      margin: 0;
+      opacity: 0.8;
+      font-size: 16px;
+    }
+
+    .services {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.75;
+      line-height: 1.5;
     }
 
     a {
       color: #7CFF9B;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .btn {
-      padding: 12px 20px;
+      padding: 14px 22px;
       border: 1px solid #7CFF9B;
-      border-radius: 8px;
-      width: 200px;
+      border-radius: 10px;
+      width: 220px;
       text-align: center;
+      transition: 0.2s ease;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #7CFF9B;
+      color: #0b0f0c;
+      transform: scale(1.03);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .contact {
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -38,10 +81,23 @@
 <body>
 
   <h1>GREEN ROAD STUDIO</h1>
+  <p class="subtitle">Recording • Mixing • Mastering</p>
 
-  <a class="btn" href="https://instagram.com/greenroad.studio">Instagram</a>
-  <a class="btn" href="https://tiktok.com/@greenroad.studio">TikTok</a>
-  <a class="btn" href="https://youtube.com/@TONCOMPTE">YouTube</a>
+  <div class="services">
+    Mix & master pour artistes indépendants<br>
+    Enregistrement vocal & direction artistique
+  </div>
+
+  <div class="container">
+    <a class="btn" href="https://instagram.com/greenroad.studio">Instagram</a>
+    <a class="btn" href="https://tiktok.com/@greenroad.studio">TikTok</a>
+    <a class="btn" href="https://youtube.com/@TONCOMPTE">YouTube</a>
+    <a class="btn" href="mailto:tonmail@gmail.com">Contact / Booking</a>
+  </div>
+
+  <div class="contact">
+    Réponse sous 24–48h • Disponible pour collaborations
+  </div>
 
 </body>
 </html>
