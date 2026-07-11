@@ -1,164 +1,570 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GREEN ROAD STUDIO — Recording, Mixing & Mastering</title>
+<meta name="description" content="Green Road Studio — Recording, Mixing & Mastering pour artistes indépendants. Drum kits, vocal chains et templates FL Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#070a08;
+    --bg-1:#0e1712;
+    --panel:rgba(255,255,255,0.03);
+    --panel-border:rgba(255,255,255,0.08);
+    --green:#7CFF9B;
+    --green-dim:rgba(124,255,155,0.35);
+    --amber:#E8A75D;
+    --amber-dim:rgba(232,167,93,0.35);
+    --ink:#EDEFEC;
+    --ink-dim:rgba(237,239,236,0.65);
+    --ink-faint:rgba(237,239,236,0.4);
+    --display: "Inter", sans-serif;
+    --mono: "Inter", sans-serif;
+    --body: "Inter", sans-serif;
+  }
 
-  <title>GREEN ROAD STUDIO</title>
-  <meta name="description" content="Green Road Studio - Recording, Mixing & Mastering pour artistes indépendants.">
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #132018, #0b0f0c);
-      color: white;
-      line-height: 1.6;
-    }
+  body{
+    margin:0;
+    font-family:var(--body);
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(124,255,155,0.08), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0) 40%);
+    background-attachment:fixed;
+    color:var(--ink);
+    line-height:1.6;
+  }
 
-    header {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px;
-    }
+  a{color:inherit;}
+  :focus-visible{
+    outline:2px solid var(--green);
+    outline-offset:3px;
+    border-radius:4px;
+  }
 
-    h1 {
-      font-size: 42px;
-      margin: 0;
-      letter-spacing: 2px;
-    }
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:18px 28px;
+    background:rgba(7,10,8,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--panel-border);
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:13px;
+    letter-spacing:0.03em;
+  }
+  .logo-mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:0.04em;
+    text-decoration:none;
+  }
+  .logo-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 10px 2px var(--green-dim);
+    flex-shrink:0;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--ink-dim);
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{color:var(--green);}
 
-    .subtitle {
-      opacity: 0.8;
-      margin-top: 10px;
-      font-size: 18px;
-    }
+  /* ---------- HERO ---------- */
+  header{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:60px 24px 40px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--green);
+    border:1px solid var(--green-dim);
+    border-radius:999px;
+    padding:6px 16px;
+    margin-bottom:28px;
+  }
+  h1{
+    font-family:var(--display);
+    font-size:clamp(38px,7vw,64px);
+    font-weight:700;
+    margin:0;
+    letter-spacing:0.01em;
+    line-height:1.05;
+  }
+  .subtitle{
+    font-family:var(--mono);
+    font-weight:500;
+    color:var(--ink-dim);
+    margin-top:16px;
+    font-size:15px;
+    letter-spacing:0.06em;
+  }
 
-    .cta {
-      margin-top: 25px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+  /* waveform signature */
+  .waveform{
+    display:flex;
+    align-items:flex-end;
+    gap:4px;
+    height:56px;
+    margin:36px 0 8px;
+  }
+  .waveform span{
+    width:4px;
+    border-radius:2px;
+    background:linear-gradient(180deg, var(--green), var(--amber));
+    opacity:0.85;
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scaleY(0.35);}
+    50%{transform:scaleY(1);}
+  }
 
-    .btn {
-      padding: 14px 22px;
-      border: 1px solid #7CFF9B;
-      border-radius: 10px;
-      text-decoration: none;
-      color: #7CFF9B;
-      transition: 0.2s ease;
-      font-weight: bold;
-      min-width: 180px;
-      text-align: center;
-    }
+  .cta{
+    margin-top:28px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    padding:14px 24px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    min-width:180px;
+    text-align:center;
+    transition:transform .15s ease, background .2s ease, color .2s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    border-color:rgba(237,239,236,0.3);
+    color:var(--ink);
+  }
+  .btn-primary:hover{
+    background:var(--ink);
+    color:var(--bg-0);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    border-color:rgba(237,239,236,0.3);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{
+    background:var(--ink);
+    color:var(--bg-0);
+    border-color:var(--ink);
+    transform:translateY(-2px);
+  }
 
-    .btn:hover {
-      background: #7CFF9B;
-      color: #0b0f0c;
-      transform: scale(1.03);
-    }
+  section{
+    padding:100px 24px;
+    max-width:1000px;
+    margin:auto;
+  }
+  .section-head{
+    text-align:center;
+    margin-bottom:50px;
+  }
+  .section-tag{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  h2{
+    font-family:var(--display);
+    font-size:clamp(26px,4vw,36px);
+    margin:0;
+    font-weight:600;
+  }
+  .lede{
+    text-align:center;
+    max-width:640px;
+    margin:0 auto;
+    color:var(--ink-dim);
+  }
 
-    section {
-      padding: 80px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+  /* ---------- SIGNAL CHAIN (services) ---------- */
+  .chain{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    margin-top:56px;
+  }
+  .chain::before{
+    content:"";
+    position:absolute;
+    top:22px;
+    left:8%;
+    right:8%;
+    height:2px;
+    background:linear-gradient(90deg, var(--green), var(--green) 60%, var(--amber));
+    opacity:0.5;
+  }
+  .chain-step{
+    position:relative;
+    padding:0 16px;
+    text-align:center;
+  }
+  .chain-node{
+    width:44px;height:44px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    border:1px solid var(--green-dim);
+    background:var(--bg-0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:12px;
+    color:var(--green);
+    position:relative;
+    z-index:2;
+  }
+  .chain-step h3{
+    font-family:var(--display);
+    font-size:18px;
+    margin:0 0 10px;
+  }
+  .chain-step p{
+    color:var(--ink-dim);
+    font-size:14.5px;
+    margin:0;
+  }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  /* ---------- BOUTIQUE ---------- */
+  #boutique{
+    background:linear-gradient(180deg, transparent, rgba(232,167,93,0.04) 30%, transparent 80%);
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+    margin-top:10px;
+  }
+  .card{
+    border:1px solid var(--panel-border);
+    border-radius:14px;
+    padding:26px 22px;
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{
+    border-color:var(--amber-dim);
+    transform:translateY(-3px);
+  }
+  .card-tag{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--amber);
+    text-transform:uppercase;
+  }
+  .card h3{
+    font-family:var(--display);
+    font-size:19px;
+    margin:0;
+  }
+  .card p{
+    color:var(--ink-dim);
+    font-size:14.5px;
+    margin:0;
+    flex-grow:1;
+  }
+  .card-link{
+    align-self:flex-start;
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:13px;
+    color:var(--amber);
+    text-decoration:none;
+    border-bottom:1px solid var(--amber-dim);
+    padding-bottom:2px;
+  }
+  .card-link:hover{border-color:var(--amber);}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
+  audio{
+    width:100%;
+    margin-top:4px;
+    accent-color:var(--green);
+  }
 
-    .card {
-      border: 1px solid rgba(124,255,155,0.3);
-      border-radius: 12px;
-      padding: 20px;
-      background: rgba(255,255,255,0.02);
-    }
+  footer{
+    text-align:center;
+    padding:50px 24px;
+    border-top:1px solid var(--panel-border);
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:12.5px;
+    color:var(--ink-faint);
+  }
 
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
+  .faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin-top:40px;
+    border-top:1px solid var(--panel-border);
+  }
+  .faq-item{
+    padding:26px 4px;
+    border-bottom:1px solid var(--panel-border);
+  }
+  .faq-item h3{
+    font-family:var(--display);
+    font-size:16.5px;
+    font-weight:600;
+    margin:0 0 10px;
+  }
+  .faq-item p{
+    color:var(--ink-dim);
+    font-size:14.5px;
+    margin:0;
+  }
+  .footer-links{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin-bottom:16px;
+  }
+  .footer-links a{
+    text-decoration:none;
+    color:var(--ink-dim);
+  }
+  .footer-links a:hover{color:var(--green);}
 
-    .step {
-      padding: 15px;
-      border-left: 3px solid #7CFF9B;
-      background: rgba(255,255,255,0.03);
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      opacity: 0.6;
-      font-size: 14px;
-    }
-
-    audio {
-      width: 100%;
-      margin-top: 10px;
-    }
-
-  </style>
+  @media (max-width:640px){
+    .nav-links{gap:16px; font-size:12px;}
+    .chain{grid-template-columns:1fr; gap:36px;}
+    .chain::before{display:none;}
+    section{padding:70px 20px;}
+  }
+</style>
 </head>
-
 <body>
 
-<header>
+<nav>
+  <a class="logo-mark" href="#top">
+    <span class="logo-dot"></span>
+    GREEN ROAD STUDIO
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a href="#boutique">Boutique</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header id="top">
+  <div class="eyebrow">Studio indépendant</div>
   <h1>GREEN ROAD STUDIO</h1>
-  <div class="subtitle">Recording • Mixing • Mastering</div>
+  <div class="subtitle">RECORDING · MIXING · MASTERING</div>
+
+  <div class="waveform" aria-hidden="true">
+    <span style="height:20px; animation-delay:0s"></span>
+    <span style="height:34px; animation-delay:.1s"></span>
+    <span style="height:48px; animation-delay:.2s"></span>
+    <span style="height:28px; animation-delay:.3s"></span>
+    <span style="height:52px; animation-delay:.4s"></span>
+    <span style="height:38px; animation-delay:.5s"></span>
+    <span style="height:44px; animation-delay:.6s"></span>
+    <span style="height:24px; animation-delay:.7s"></span>
+    <span style="height:40px; animation-delay:.8s"></span>
+    <span style="height:30px; animation-delay:.9s"></span>
+  </div>
 
   <div class="cta">
-    <a class="btn" href="mailto:guilann@greenroad.studio">Booking / Contact</a>
-    <a class="btn" href="https://instagram.com/greenroad.studio">Instagram</a>
+    <a class="btn btn-primary" href="mailto:guilann@greenroad.studio">Booking / Contact</a>
+    <a class="btn btn-ghost" href="https://instagram.com/greenroad.studio">Instagram</a>
   </div>
 </header>
 
-<section>
-  <h2>À propos</h2>
-  <p style="text-align:center; opacity:0.85;">
+<section id="about">
+  <div class="section-head">
+    <div class="section-tag">À propos</div>
+    <h2>Enregistrement, mixage et mastering pour artistes indépendants</h2>
+  </div>
+  <p class="lede">
     J'accompagne les artistes indépendants dans la création de sons professionnels,
-    du recording jusqu’au mastering final.
+    du recording jusqu'au mastering final — avec une direction artistique pensée
+    pour chaque projet.
   </p>
 </section>
 
-<section>
-  <h2>Services</h2>
+<section id="services">
+  <div class="section-head">
+    <div class="section-tag">Trois étapes, une seule direction</div>
+    <h2>Services</h2>
+  </div>
 
-  <div class="grid">
-    <div class="card">
+  <div class="chain">
+    <div class="chain-step">
+      <div class="chain-node">REC</div>
       <h3>Recording</h3>
       <p>Enregistrement vocal propre, direction artistique et prise de voix optimisée.</p>
     </div>
-
-    <div class="card">
+    <div class="chain-step">
+      <div class="chain-node">MIX</div>
       <h3>Mixing</h3>
-      <p>Équilibre, spatialisation, effets et cohérence sonore professionnelle.</p>
+      <p>Équilibrage des niveaux, traitement dynamique, spatialisation stéréo et corrections nécessaires avant mastering.</p>
     </div>
-
-    <div class="card">
+    <div class="chain-step">
+      <div class="chain-node">MST</div>
       <h3>Mastering</h3>
       <p>Optimisation finale pour streaming (Spotify, YouTube, Apple Music).</p>
     </div>
   </div>
+</section>
 
-<footer>
-  © 2026 GREEN ROAD STUDIO — All rights reserved
+<section id="realisations">
+  <div class="section-head">
+    <div class="section-tag">Ça sonne comment</div>
+    <h2>Réalisations</h2>
+  </div>
+  <p class="lede">
+    Quelques extraits de projets récents — recording, mix et mastering.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-tag">Titre / Artiste</div>
+      <h3>Nom du morceau</h3>
+      <p>Genre, rôle sur le projet (recording, mix, mastering).</p>
+      <!-- Remplace src par le fichier audio réel -->
+      <audio controls src=""></audio>
+    </div>
+    <div class="card">
+      <div class="card-tag">Titre / Artiste</div>
+      <h3>Nom du morceau</h3>
+      <p>Genre, rôle sur le projet (recording, mix, mastering).</p>
+      <audio controls src=""></audio>
+    </div>
+    <div class="card">
+      <div class="card-tag">Titre / Artiste</div>
+      <h3>Nom du morceau</h3>
+      <p>Genre, rôle sur le projet (recording, mix, mastering).</p>
+      <audio controls src=""></audio>
+    </div>
+  </div>
+</section>
+
+<section id="boutique">
+  <div class="section-head">
+    <div class="section-tag">Sound design & outils</div>
+    <h2>Boutique</h2>
+  </div>
+  <p class="lede">
+    Drum kits, vocal chains et templates FL Studio, disponibles en téléchargement immédiat.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-tag">Drum Kit</div>
+      <h3>Nom du kit</h3>
+      <p>Description courte : ambiance, genre visé, nombre de sons inclus.</p>
+      <!-- Remplace # par ton vrai lien Gumroad / Payhip -->
+      <a class="card-link" href="#" target="_blank" rel="noopener">Voir le produit →</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Vocal Chain</div>
+      <h3>Nom de la chain</h3>
+      <p>Description courte : style vocal, plugins utilisés, rendu final.</p>
+      <a class="card-link" href="#" target="_blank" rel="noopener">Voir le produit →</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Template FL Studio</div>
+      <h3>Nom du template</h3>
+      <p>Description courte : genre, structure du projet, éléments inclus.</p>
+      <a class="card-link" href="#" target="_blank" rel="noopener">Voir le produit →</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="section-head">
+    <div class="section-tag">Avant de réserver</div>
+    <h2>Questions fréquentes</h2>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <h3>Quel est le délai moyen pour un mix ou un mastering ?</h3>
+      <p>Compte en général quelques jours après réception des fichiers, selon la période et le nombre de projets en cours. Un délai précis est donné avant chaque commande.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Combien de révisions sont incluses ?</h3>
+      <p>Un ou plusieurs allers-retours sont prévus pour ajuster le rendu avant validation finale, selon la formule choisie.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Dans quel format dois-je envoyer mes fichiers ?</h3>
+      <p>Fichiers non compressés (WAV, 24 bits si possible), pistes séparées et non masterisées pour le mix, sans limiteur sur le master bus.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Les drum kits / vocal chains / templates sont-ils livrés immédiatement ?</h3>
+      <p>Oui, en téléchargement direct après achat via la plateforme partenaire.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-links">
+    <a href="mailto:guilann@greenroad.studio">guilann@greenroad.studio</a>
+    <a href="https://instagram.com/greenroad.studio">Instagram</a>
+  </div>
+  © 2026 GREEN ROAD STUDIO — Tous droits réservés
 </footer>
 
 </body>
